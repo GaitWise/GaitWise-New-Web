@@ -12,6 +12,7 @@ import LabResultsList from './participants/LabResultList'
 import ParticipantHeader from './participants/ParticipantHeader'
 import PatientList from './participants/ParticipantsList'
 import PatientProfile from './participants/ParticipantsProfile'
+import Profile from './participants/Profile'
 import ProjectList from './participants/ProjectList'
 
 export {
@@ -27,6 +28,7 @@ export {
   ParticipantHeader,
   PatientList,
   PatientProfile,
+  Profile,
   ProjectCard,
   ProjectList,
   SideTabs,

@@ -14,6 +14,8 @@ export type User = {
   weight: Weight // 체중 정보 (Weight 타입)
   height: number // 키 (정수형)
   job: string // 직업
+  email: string // 이메일 주소
+  status: string // 계정 상태 (활성화, 비활성화)
   profile_image_url: string // 프로필 이미지 URL
   password: string // 해시화된 비밀번호
   createdAt: Date // 계정 생성 날짜

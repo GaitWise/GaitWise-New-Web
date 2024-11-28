@@ -43,12 +43,14 @@ export default async function Home({ params }: { params: { projectTitle: string;
 
   // API からプロジェクトデータを取得
   const projectData = await fetchProjectData(projectTitle)
-
-  let participants!: User[]
+  let participants: User[] | undefined
+  let matchedParticipant: User | undefined
 
   if (projectData.participants) {
     participants = projectData.participants
+    matchedParticipant = participants?.find((participant) => participant._id === userid)
   }
+
   // 全患者データを取得
   const initialData = await getAllPatients()
 
@@ -63,24 +65,21 @@ export default async function Home({ params }: { params: { projectTitle: string;
 
   if (participant) {
     profile = getProfileData<Patient>(participant) as PatientProfileType
-
     if (participant.diagnosis_history) diagnosisHistory = participant.diagnosis_history
-
     if (participant.diagnostic_list) diagnoticList = participant.diagnostic_list
-
     if (participant.lab_results) labResults = participant.lab_results
   }
 
   return (
     <main className="mx-4 mb-8 flex min-h-screen flex-wrap justify-center lg:grid lg:grid-flow-col lg:grid-cols-4 lg:grid-rows-1 lg:gap-x-8">
       <section className="mb-8 lg:mb-0">
-        <PatientList participants={participants} projectTitle={projectTitle} />
+        <PatientList participants={participants || []} projectTitle={projectTitle} />
       </section>
       <section className="col-start-2 col-end-4 mb-8 grid grid-cols-1 gap-8 lg:mb-0">
         <DiagnosisHistory diagnosisHistory={diagnosisHistory} />
       </section>
       <section className="mb-8 grid grid-cols-1 gap-8 lg:mb-0">
-        <SideTabs profile={profile} labResults={labResults} />
+        {matchedParticipant && <SideTabs labResults={labResults} matchedParticipant={matchedParticipant} />}
       </section>
     </main>
   )
