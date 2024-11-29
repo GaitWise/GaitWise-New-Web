@@ -9,6 +9,7 @@ export type Walking = {
   walking_time: string // 걷기 시간 (형식: "HH:MM:SS" 등)
   step_count: number // 걸음 수
   shose: string // 사용한 신발 정보
+  event_time: Date[] // 이벤트 시간 (배열)
   createAt: Date // 레코드 생성 날짜
   updateAt: Date // 레코드 갱신 날짜
 }
