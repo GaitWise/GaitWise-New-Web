@@ -15,7 +15,7 @@ const AccSchema = new mongoose.Schema(
   }
 )
 
-const Acc = mongoose.models.Acc || mongoose.model('Acc', AccSchema)
+const Acc = mongoose.models.acc || mongoose.model('acc', AccSchema)
 
 // ====== Gyro Schema
 const GyroSchema = new mongoose.Schema(
@@ -31,7 +31,7 @@ const GyroSchema = new mongoose.Schema(
   }
 )
 
-const Gyro = mongoose.models.Gyro || mongoose.model('Gyro', GyroSchema)
+const Gyro = mongoose.models.gyro || mongoose.model('gyro', GyroSchema)
 
 // ====== Rot Schema
 const RotSchema = new mongoose.Schema(
@@ -47,6 +47,6 @@ const RotSchema = new mongoose.Schema(
   }
 )
 
-const Rot = mongoose.models.Rot || mongoose.model('Rot', RotSchema)
+const Rot = mongoose.models.rot || mongoose.model('rot', RotSchema)
 
 export { Acc, Gyro, Rot }

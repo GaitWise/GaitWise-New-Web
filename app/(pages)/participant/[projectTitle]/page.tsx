@@ -6,7 +6,7 @@ import getAllPatients from '@/lib/services/Patients'
 
 async function fetchProjectData(projectTitle: string) {
   const query = new URLSearchParams({ project_name: projectTitle }).toString()
-  const baseUrl = process.env.SERVER_DOMAIN
+  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN
   const response = await fetch(`${baseUrl}/api/project/pagedetails/?${query}`, {
     method: 'GET',
   })
@@ -77,7 +77,7 @@ export default async function Home({ params }: { params: { projectTitle: string;
         <PatientList participants={participants} projectTitle={projectTitle} />
       </section>
       <section className="col-start-2 col-end-4 mb-8 grid grid-cols-1 gap-8 lg:mb-0">
-        <DiagnosisHistory diagnosisHistory={diagnosisHistory} />
+        <DiagnosisHistory diagnosisHistory={diagnosisHistory} stepCount={0} walkingTime={''} />
       </section>
       <section className="mb-8 grid grid-cols-1 gap-8 lg:mb-0">
         <SideTabs profile={profile} labResults={labResults} />
