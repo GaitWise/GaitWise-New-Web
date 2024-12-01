@@ -1,29 +1,28 @@
-import axios from "axios";
-import getAllPatients from '@/lib/services/Patients'
-import { SideTabs } from '@/components/common/SideTabs'
+import axios from 'axios'
 import { DiagnosisHistory, PatientList } from 'components'
-import WalkingDataChart from "@/components/ui/WalkingDataChart"; 
-import type { DiagnosisRecord, Diagnostic, Patient, PatientProfileType, User } from '@/app/types'
 
+import type { DiagnosisRecord, Diagnostic, Patient, PatientProfileType, User } from '@/app/types'
+import { SideTabs } from '@/components/common/SideTabs'
+import WalkingDataChart from '@/components/ui/WalkingDataChart'
+import getAllPatients from '@/lib/services/Patients'
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // walkingId를 가지고 Walking 데이터 가져오는 함수
 const fetchWalkingData = async (walkingId: string) => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
+    const baseUrl = process.env.NEXT_PUBLIC_DOMAIN
     const response = await axios.post(
       `${baseUrl}/api/project/graph`,
       { walkingId },
-      { headers: { "Content-Type": "application/json", "Cache-Control": "no-cache" } }
-    );
-    if (response.status !== 200)
-      throw new Error(`Failed to fetch walking data for ID: ${walkingId}`);
-    return response.data.data;
+      { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' } }
+    )
+    if (response.status !== 200) throw new Error(`Failed to fetch walking data for ID: ${walkingId}`)
+    return response.data.data
   } catch (error) {
-    console.error("Error fetching walking data:", error.message);
-    return null;
+    console.error('Error fetching walking data:', error.message)
+    return null
   }
-};
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 async function fetchProjectData(projectTitle: string) {
@@ -63,14 +62,10 @@ export default async function Home({ params }: { params: { projectTitle: string;
   console.log('SSR params:', projectTitle)
   console.log('SSR params 2:', userid)
 
-  
-  
   ////////////////////////////////////////////////////////////////////////
   // Walking_id를 이용해서 걸음 데이터 가져오기
-  const walkingData = await fetchWalkingData("674ac22efcc66ba27ca73258");
+  const walkingData = await fetchWalkingData('674ac22efcc66ba27ca73258')
   ////////////////////////////////////////////////////////////////////////
-
-
 
   // API からプロジェクトデータを取得
   const projectData = await fetchProjectData(projectTitle)
@@ -107,22 +102,22 @@ export default async function Home({ params }: { params: { projectTitle: string;
       <section className="mb-8 lg:mb-0">
         <PatientList participants={participants} projectTitle={projectTitle} />
       </section>
-      
+
       <section className="col-start-2 col-end-4 mb-8 grid grid-cols-1 gap-8 lg:mb-0">
         {walkingData ? (
-        <section className="col-span-4">
-          <h2 className="text-center text-lg font-bold">Walking Data Visualization</h2>
-          <WalkingDataChart
-            eventTime={walkingData.event_time}
-            acc={walkingData.acc}
-            gyro={walkingData.gyro}
-            rot={walkingData.rot}
-          />
-        </section>
-      ) : (
-        <p>Loading Walking Data...</p>
-      )}
-       <DiagnosisHistory
+          <section className="col-span-4">
+            <h2 className="text-center text-lg font-bold">Walking Data Visualization</h2>
+            <WalkingDataChart
+              eventTime={walkingData.event_time}
+              acc={walkingData.acc}
+              gyro={walkingData.gyro}
+              rot={walkingData.rot}
+            />
+          </section>
+        ) : (
+          <p>Loading Walking Data...</p>
+        )}
+        <DiagnosisHistory
           diagnosisHistory={diagnosisHistory}
           stepCount={walkingData.step_count}
           walkingTime={walkingData.walking_time}
@@ -132,7 +127,6 @@ export default async function Home({ params }: { params: { projectTitle: string;
       <section className="mb-8 grid grid-cols-1 gap-8 lg:mb-0">
         <SideTabs profile={profile} labResults={labResults} />
       </section>
-     
     </main>
-  );
+  )
 }

@@ -18,7 +18,15 @@ import BaseCardDiagnosis from './BaseCardDiagnosis'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
-const DiagnosisHistory = ({ diagnosisHistory, stepCount, walkingTime }: { diagnosisHistory: DiagnosisRecord[]; stepCount: number; walkingTime: string }) => {
+const DiagnosisHistory = ({
+  diagnosisHistory,
+  stepCount,
+  walkingTime,
+}: {
+  diagnosisHistory: DiagnosisRecord[]
+  stepCount: number
+  walkingTime: string
+}) => {
   const respiratoryRates = diagnosisHistory.map((history) => history.respiratory_rate.value).reverse()
   const heartRates = diagnosisHistory.map((history) => history.heart_rate.value).reverse()
   const temperatureRates = diagnosisHistory.map((history) => history.temperature.value).reverse()
@@ -45,12 +53,7 @@ const DiagnosisHistory = ({ diagnosisHistory, stepCount, walkingTime }: { diagno
       </div>
       <section className="mt-5 grid grid-cols-1 grid-rows-1 justify-center gap-5 lg:grid-cols-3">
         {historyCards.map((cardPros, index) => (
-          <BaseCardDiagnosis
-            key={index}
-            cardProps={cardPros}
-            stepCount={stepCount}
-            walkingTime={walkingTime}
-          />
+          <BaseCardDiagnosis key={index} cardProps={cardPros} stepCount={stepCount} walkingTime={walkingTime} />
         ))}
       </section>
     </section>
